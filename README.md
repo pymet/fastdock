@@ -46,6 +46,7 @@ srv undock -v # beware volumes will be destoyed too
 ```sh
 docker service create -p 9000:22 \
   --mount type=volume,src=fastdock_ssh,dst=/etc/ssh \
+  --mount type=bind,src=/var/lib/docker,dst=/var/lib/docker \
   --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
   --mount type=bind,src=/root/.ssh/authorized_keys,dst=/keys/root,ro \
   --name=fastdock pymet/fastdock
@@ -62,6 +63,7 @@ docker service rm fastdock
 ```sh
 docker run -p 9000:22 \
   -v fastdock_ssh:/etc/ssh \
+  -v /var/lib/docker:/var/lib/docker \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /root/.ssh/authorized_keys:/keys/root:ro \
   -d --name=fastdock pymet/fastdock
@@ -84,12 +86,14 @@ docker run pymet/fastdock example
 ```sh
 docker run -p 9000:22 \
   -v fastdock_ssh:/etc/ssh \
+  -v /var/lib/docker:/var/lib/docker \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /root/.ssh/authorized_keys:/keys/root:ro \
   -d --name=fastdock pymet/fastdock
 
 docker service create -p 9000:22 \
   --mount type=volume,src=fastdock_ssh,dst=/etc/ssh \
+  --mount type=bind,src=/var/lib/docker,dst=/var/lib/docker \
   --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
   --mount type=bind,src=/root/.ssh/authorized_keys,dst=/keys/root,ro \
   --name=fastdock pymet/fastdock
