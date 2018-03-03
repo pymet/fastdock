@@ -17,6 +17,8 @@ services:
       - /var/lib/docker:/var/lib/docker
       - /var/run/docker.sock:/var/run/docker.sock
       - ./authorized_keys:/keys/root:ro
+    ports:
+      - 9000:22
     networks:
       webnet:
 
