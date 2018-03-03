@@ -5,7 +5,7 @@ COPY undock.sh /usr/bin/undock
 COPY example.sh /usr/bin/example
 COPY place.sh /usr/bin/place
 
-FROM docker:18.02
+FROM docker:stable
 COPY --from=build / /
 RUN apk --no-cache add openssh-server python3 && \
     python3 -m pip install docker-compose && \
